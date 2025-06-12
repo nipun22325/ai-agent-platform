@@ -4,10 +4,9 @@ import { z } from "zod";
 import { OctagonAlertIcon } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-
+import { FaGithub, FaGoogle } from "react-icons/fa";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { Input } from "@/components/ui/input";
@@ -22,6 +21,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -46,22 +46,46 @@ export const SignInView = () => {
     setPending(true);
     // Attempt to sign in with the provided email and password
     authClient.signIn.email(
-        {
-            email : data.email,
-            password : data.password,
+      {
+        email: data.email,
+        password: data.password,
+        callbackURL: "/",
+      },
+      {
+        onSuccess: () => {
+          // If sign-in is successful, redirect to front page
+          setPending(false);
         },
-        {
-            onSuccess: () => {
-                // If sign-in is successful, redirect to front page
-                setPending(false);
-                router.push("/");
-            },
-            onError: ({error}) => {
-                // If sign-in fails, set the error message
-                setPending(false);
-                setError(error.message);
-            }
-        }
+        onError: ({ error }) => {
+          // If sign-in fails, set the error message
+          setPending(false);
+          setError(error.message);
+        },
+      }
+    );
+  };
+
+  const onSocial = (provider: "github" | "google") => {
+    setError(null);
+    setPending(true);
+    // Attempt to sign in with the provided email and password
+    authClient.signIn.social(
+      {
+        provider: provider,
+        callbackURL: "/",
+      },
+      {
+        onSuccess: () => {
+          // If sign-in is successful, redirect to front page
+          setPending(false);
+          router.push("/");
+        },
+        onError: ({ error }) => {
+          // If sign-in fails, set the error message
+          setPending(false);
+          setError(error.message);
+        },
+      }
     );
   };
 
@@ -117,13 +141,11 @@ export const SignInView = () => {
                 {!!error && (
                   <Alert className="bg-destructive/10 border-none">
                     <OctagonAlertIcon className="h-4 w-4 !text-destructive" />
-                    <AlertTitle className="text-sm">
-                      {error}
-                    </AlertTitle>
+                    <AlertTitle className="text-sm">{error}</AlertTitle>
                   </Alert>
                 )}
                 <Button className="w-full" type="submit" disabled={pending}>
-                    Sign In
+                  Sign In
                 </Button>
                 <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
                   <span className="bg-card text-muted-foreground relative z-10 px-2">
@@ -131,11 +153,23 @@ export const SignInView = () => {
                   </span>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                  <Button variant="outline" type="button" className="w-full" disabled={pending}>
-                    Google
+                  <Button
+                    variant="outline"
+                    type="button"
+                    className="w-full"
+                    disabled={pending}
+                    onClick={() => onSocial("google")}
+                  >
+                    <FaGoogle />
                   </Button>
-                  <Button variant="outline" type="button" className="w-full" disabled={pending}>
-                    GitHub
+                  <Button
+                    variant="outline"
+                    type="button"
+                    className="w-full"
+                    disabled={pending}
+                    onClick={() => onSocial("github")}
+                  >
+                    <FaGithub />
                   </Button>
                 </div>
                 <div className="text-center text-sm text-muted-foreground">
