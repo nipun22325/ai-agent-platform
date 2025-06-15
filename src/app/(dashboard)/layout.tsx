@@ -4,10 +4,12 @@ import { DashboardSidebar } from "@/modules/dashboard/ui/components/dashboard-si
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <SidebarProvider>
-      <DashboardSidebar />
-      <main className="flex flex-col h-screen w-screen bg-muted">
-        {children}
-      </main>
+      <div className="flex h-screen w-full">
+        <DashboardSidebar />
+        <main className="flex-1 flex flex-col bg-muted overflow-auto">
+          {children}
+        </main>
+      </div>
     </SidebarProvider>
   );
 };
