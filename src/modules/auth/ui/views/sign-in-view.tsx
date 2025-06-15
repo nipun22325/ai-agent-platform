@@ -55,6 +55,7 @@ export const SignInView = () => {
         onSuccess: () => {
           // If sign-in is successful, redirect to front page
           setPending(false);
+          router.push("/");
         },
         onError: ({ error }) => {
           // If sign-in fails, set the error message
@@ -75,11 +76,10 @@ export const SignInView = () => {
         callbackURL: "/",
       },
       {
-        onSuccess: () => {
-          // If sign-in is successful, redirect to front page
-          setPending(false);
-          router.push("/");
-        },
+        // onSuccess: () => {
+        //   // If sign-in is successful, redirect to front page
+        //   setPending(false);
+        // },
         onError: ({ error }) => {
           // If sign-in fails, set the error message
           setPending(false);

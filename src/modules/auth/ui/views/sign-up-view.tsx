@@ -86,10 +86,10 @@ export const SignUpView = () => {
         callbackURL: "/",
       },
       {
-        onSuccess: () => {
-          // If sign-in is successful, redirect to front page
-          setPending(false);
-        },
+        // onSuccess: () => {
+        //   // If sign-in is successful, redirect to front page
+        //   setPending(false);
+        // },
         onError: ({ error }) => {
           // If sign-in fails, set the error message
           setPending(false);
