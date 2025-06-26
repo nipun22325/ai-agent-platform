@@ -2,9 +2,9 @@ import { useTRPC } from "@/trpc/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 
-import { AgentGetOne } from "../types";
+import { AgentGetOne } from "../../types";
 import { z } from "zod";
-import { agentsInsertSchema } from "../schemas";
+import { agentsInsertSchema } from "../../schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import {
