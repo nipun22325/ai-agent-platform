@@ -1,0 +1,19 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .mic-glow {
+      animation: glow 2s infinite ease-in-out;
+    }
+    @keyframes glow {
+      0% { filter: drop-shadow(0 0 0px #34D399); }
+      50% { filter: drop-shadow(0 0 15px #34D399); }
+      100% { filter: drop-shadow(0 0 0px #34D399); }
+    }
+  </style>
+
+  <!-- Microphone with glow animation -->
+  <g class="mic-glow">
+    <rect x="75" y="60" width="50" height="80" rx="25" fill="#199D70" />
+  </g>
+    <line x1="100" y1="140" x2="100" y2="155" stroke="#EAF5E9" stroke-width="6"/>
+    <path d="M75 155 Q100 175 125 155" stroke="#EAF5E9" stroke-width="6" fill="none" />
+</svg>
